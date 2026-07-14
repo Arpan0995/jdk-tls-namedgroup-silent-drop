@@ -1,0 +1,6 @@
+jdks/
+lib/*.jar
+*.class
+server.keystore
+traces/
+.DS_Store
