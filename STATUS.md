@@ -113,12 +113,96 @@ reflection into `sun.security.ssl` internals.
 
 Confirms the finding is not an artifact of the local BC server.
 
-## Minimal reproducer (COMPLETE)
+## Minimal reproducer (COMPLETE; redesigned 2026-07-17)
 
-`src/SilentDropRepro.java` — 41 lines, stock JDK only, one command:
-`java src/SilentDropRepro.java` (add `-Djavax.net.debug=ssl:handshake` for the
-evidence line). Verified on both JDKs, including
-`java src/SilentDropRepro.java MLKEM768,x25519` on 27 EA.
+`src/SilentDropRepro.java` — 76 lines, stock JDK 21+, one command, **fully
+offline**: no server, no network, no keystore. It (1) enumerates supported
+groups, (2) calls `setNamedGroups(requested)` (accepted without exception even
+for unsupported names), (3) produces a ClientHello entirely in memory via
+`SSLEngine.wrap()` (no exception even when groups were dropped; with
+`-Djavax.net.debug=ssl:handshake`, the trace shows both the
+`Ignore unspecified named group: <name>` drop line and the actual
+`"named groups": [...]` extension content), (4) runs the
+`setEnabledProtocols("TLSv9.9")` control (throws `IllegalArgumentException`),
+and (5) prints an explicit verdict. If every requested group IS supported on
+the running JDK (e.g. X25519MLKEM768 on 27 EA), it says so instead of claiming
+a drop.
+
+The redesigned file was re-run offline on both pinned JDKs on 2026-07-17
+(tarballs re-downloaded from the pinned URLs above into `jdks/`; byte sizes
+220143967 / 219537063 match the server Content-Length; `java -version` matches
+`26.0.1+8-34` and `27-ea+30-2302`). It also runs clean on the incidental
+**Corretto 24.0.2** in this environment (edge cases: all-supported `x25519,x448`;
+`NoSuchGroup12345,x25519`; `java --source 21`; plain `javac`). Verbatim below.
+
+### JDK 26.0.1 GA (26.0.1+8-34) — X25519MLKEM768 unsupported, silently dropped
+
+`jdks/jdk-26.0.1.jdk/Contents/Home/bin/java src/SilentDropRepro.java`:
+```
+JDK:              26.0.1+8-34
+Supported groups: x25519,secp256r1,secp384r1,secp521r1,x448,ffdhe2048,ffdhe3072,ffdhe4096,ffdhe6144,ffdhe8192
+Requested groups: X25519MLKEM768,x25519
+setNamedGroups(X25519MLKEM768,x25519): accepted, NO exception
+getNamedGroups() reads back:  X25519MLKEM768,x25519   <-- what was SET, even if dropped
+ClientHello produced: OK, 226 bytes, NO exception
+Control setEnabledProtocols(TLSv9.9): threw IllegalArgumentException: Unsupported protocol: TLSv9.9
+
+=> Unsupported named group(s) [X25519MLKEM768] were silently accepted and
+   dropped from the ClientHello; an unsupported protocol throws immediately.
+   Only evidence: -Djavax.net.debug=ssl:handshake 2>&1 | grep "named group"
+```
+`... src/SilentDropRepro.java MLKEM768,x25519` — identical shape, verdict
+`[MLKEM768]` silently dropped.
+Debug greps (`-Djavax.net.debug=ssl:handshake ... 2>&1 | grep "named group"`):
+```
+# default arg:
+SupportedGroupsExtension.java:181|Ignore unspecified named group: X25519MLKEM768
+      "named groups": [x25519]
+# MLKEM768,x25519:
+SupportedGroupsExtension.java:181|Ignore unspecified named group: MLKEM768
+      "named groups": [x25519]
+```
+
+### JDK 27 EA (27-ea+30-2302) — X25519MLKEM768 now supported (JEP 527); MLKEM768 still dropped
+
+`jdks/jdk-27.jdk/Contents/Home/bin/java src/SilentDropRepro.java` (graceful
+"nothing dropped" branch — X25519MLKEM768 is first in the supported list):
+```
+JDK:              27-ea+30-2302
+Supported groups: X25519MLKEM768,x25519,secp256r1,secp384r1,secp521r1,x448,ffdhe2048,ffdhe3072,ffdhe4096
+Requested groups: X25519MLKEM768,x25519
+setNamedGroups(X25519MLKEM768,x25519): accepted, NO exception
+getNamedGroups() reads back:  X25519MLKEM768,x25519   <-- what was SET, even if dropped
+ClientHello produced: OK, 1455 bytes, NO exception
+Control setEnabledProtocols(TLSv9.9): threw IllegalArgumentException: Unsupported protocol: TLSv9.9
+
+=> All requested groups are supported on this JDK; nothing was dropped here.
+   Try: java src/SilentDropRepro.java MLKEM768,x25519   (unsupported even on JDK 27 EA)
+```
+`... src/SilentDropRepro.java MLKEM768,x25519` (defect persists post-JEP-527):
+```
+JDK:              27-ea+30-2302
+Supported groups: X25519MLKEM768,x25519,secp256r1,secp384r1,secp521r1,x448,ffdhe2048,ffdhe3072,ffdhe4096
+Requested groups: MLKEM768,x25519
+setNamedGroups(MLKEM768,x25519): accepted, NO exception
+getNamedGroups() reads back:  MLKEM768,x25519   <-- what was SET, even if dropped
+ClientHello produced: OK, 233 bytes, NO exception
+Control setEnabledProtocols(TLSv9.9): threw IllegalArgumentException: Unsupported protocol: TLSv9.9
+
+=> Unsupported named group(s) [MLKEM768] were silently accepted and
+   dropped from the ClientHello; an unsupported protocol throws immediately.
+   Only evidence: -Djavax.net.debug=ssl:handshake 2>&1 | grep "named group"
+```
+Debug greps:
+```
+# default arg (nothing dropped -> no Ignore line; hybrid present in ClientHello):
+      "named groups": [X25519MLKEM768, x25519]
+          "named group": X25519MLKEM768
+          "named group": x25519
+# MLKEM768,x25519 (recognized-but-disabled wording, line :200 not :181):
+SupportedGroupsExtension.java:200|Ignore inactive or disabled named group: MLKEM768
+      "named groups": [x25519]
+```
 
 ## Not run / caveats
 

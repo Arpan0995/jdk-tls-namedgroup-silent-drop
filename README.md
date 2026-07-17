@@ -16,22 +16,34 @@ Key artifacts:
 
 - [STATUS.md](STATUS.md) — pinned environment, full results matrix (C1–C5 × 2 JDKs), findings.
 - [results/EVIDENCE.md](results/EVIDENCE.md) — verbatim `javax.net.debug` excerpts per case (machine-extracted from real traces).
-- [src/SilentDropRepro.java](src/SilentDropRepro.java) — minimal standalone reproducer (41 lines, stock JDK, one command).
+- [src/SilentDropRepro.java](src/SilentDropRepro.java) — minimal standalone reproducer (76 lines, stock JDK 21+, one command, fully offline: no server, no network, no dependencies).
 - [scripts/run_matrix.sh](scripts/run_matrix.sh) — re-runs the whole matrix from scratch.
 
 ## Quick demonstration
 
-```bash
-# stock JDK 26: request hybrid X25519MLKEM768 -> silently connects classical
-java src/SilentDropRepro.java
+Fully offline — no server, no network, no keystore. The reproducer requests the
+groups, produces a ClientHello in memory via `SSLEngine`, and prints a verdict:
 
-# JDK 27 EA: pure ML-KEM is still silently dropped post-JEP-527
+```bash
+# stock JDK (pre-27): request hybrid X25519MLKEM768 -> silently accepted and dropped
+java src/SilentDropRepro.java
+#   setNamedGroups(X25519MLKEM768,x25519): accepted, NO exception
+#   ClientHello produced: OK, 236 bytes, NO exception
+#   Control setEnabledProtocols(TLSv9.9): threw IllegalArgumentException: Unsupported protocol: TLSv9.9
+#   => Unsupported named group(s) [X25519MLKEM768] were silently accepted and
+#      dropped from the ClientHello; an unsupported protocol throws immediately.
+
+# pure ML-KEM: still silently dropped on JDK 27 EA, post-JEP-527
 java src/SilentDropRepro.java MLKEM768,x25519
 
-# the only evidence, buried in the debug trace:
-java -Djavax.net.debug=ssl:handshake src/SilentDropRepro.java 2>&1 | grep "Ignore"
+# the only evidence the JDK ever emits, plus the actual ClientHello extension content:
+java -Djavax.net.debug=ssl:handshake src/SilentDropRepro.java 2>&1 | grep "named group"
 #   Ignore unspecified named group: X25519MLKEM768
+#         "named groups": [x25519]
 ```
+
+On a JDK where a requested group IS supported (e.g. `X25519MLKEM768` on JDK 27),
+the reproducer says so explicitly instead of claiming a drop.
 
 ## Reproducing the full matrix
 

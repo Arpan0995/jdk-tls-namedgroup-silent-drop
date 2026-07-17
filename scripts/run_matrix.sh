@@ -29,7 +29,7 @@ run_case() {
             > "traces/${case}-jdk${jdk}.log" 2>&1
         echo "--- $case / JDK $jdk (exit $?) ---"
         grep -E "^PROBE" "traces/${case}-jdk${jdk}.log" | head -8
-        grep -m1 "Ignore unspecified named group" "traces/${case}-jdk${jdk}.log" || true
+        grep -m1 -E "Ignore (unspecified|inactive or disabled) named group" "traces/${case}-jdk${jdk}.log" || true
         grep -m1 '"named group"' "traces/${case}-jdk${jdk}.log" || true
     done
 
