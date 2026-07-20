@@ -1,0 +1,427 @@
+javax.net.ssl|DEBUG|30|main|2026-07-19 12:44:12.608 CDT|SSLCipher.java:426|jdk.tls.keyLimits:  entry = AES/GCM/NoPadding KeyUpdate 2^37. AES/GCM/NOPADDING:KEYUPDATE = 137438953472
+javax.net.ssl|DEBUG|30|main|2026-07-19 12:44:12.616 CDT|SSLCipher.java:426|jdk.tls.keyLimits:  entry =  ChaCha20-Poly1305 KeyUpdate 2^37. CHACHA20-POLY1305:KEYUPDATE = 137438953472
+javax.net.ssl|DEBUG|30|main|2026-07-19 12:44:12.713 CDT|SupportedGroupsExtension.java:200|Ignore inactive or disabled named group: MLKEM768
+javax.net.ssl|INFO|30|main|2026-07-19 12:44:12.713 CDT|AlpnExtension.java:176|No available application protocols
+javax.net.ssl|DEBUG|30|main|2026-07-19 12:44:12.713 CDT|SSLExtensions.java:282|Ignore, context unavailable extension: application_layer_protocol_negotiation
+javax.net.ssl|DEBUG|30|main|2026-07-19 12:44:12.714 CDT|SSLExtensions.java:282|Ignore, context unavailable extension: cookie
+javax.net.ssl|DEBUG|30|main|2026-07-19 12:44:12.718 CDT|SSLExtensions.java:282|Ignore, context unavailable extension: quic_transport_parameters
+javax.net.ssl|DEBUG|30|main|2026-07-19 12:44:12.718 CDT|PreSharedKeyExtension.java:661|No session to resume.
+javax.net.ssl|DEBUG|30|main|2026-07-19 12:44:12.718 CDT|SSLExtensions.java:282|Ignore, context unavailable extension: pre_shared_key
+javax.net.ssl|DEBUG|30|main|2026-07-19 12:44:12.723 CDT|ClientHello.java:640|Produced ClientHello handshake message (
+"ClientHello": {
+  "client version"      : "TLSv1.2",
+  "random"              : "0B7A70A1BE4B0DE808A79E0E767E320A3AAE79FB89C52F1CDA533CB01D9E025E",
+  "session id"          : "E5524AE18F6A869FD15BD7ADF1BD953B11D32C147F542BE672B56CFB8D424BCE",
+  "cipher suites"       : "[TLS_AES_256_GCM_SHA384(0x1302), TLS_AES_128_GCM_SHA256(0x1301), TLS_CHACHA20_POLY1305_SHA256(0x1303)]",
+  "compression methods" : "00",
+  "extensions"          : [
+    "server_name (0)": {
+      type=host_name (0), value=pq.cloudflareresearch.com
+    },
+    "status_request (5)": {
+      "certificate status type": ocsp
+      "OCSP status request": {
+        "responder_id": <empty>
+        "request extensions": {
+          <empty>
+        }
+      }
+    },
+    "supported_groups (10)": {
+      "named groups": [x25519]
+    },
+    "compress_certificate (27)": {
+      "compression algorithms": [ZLIB]
+    },
+    "signature_algorithms (13)": {
+      "signature schemes": [ecdsa_secp256r1_sha256, ecdsa_secp384r1_sha384, ecdsa_secp521r1_sha512, ed25519, ed448, rsa_pss_rsae_sha256, rsa_pss_rsae_sha384, rsa_pss_rsae_sha512, rsa_pss_pss_sha256, rsa_pss_pss_sha384, rsa_pss_pss_sha512]
+    },
+    "supported_versions (43)": {
+      "versions": [TLSv1.3]
+    },
+    "psk_key_exchange_modes (45)": {
+      "ke_modes": [psk_dhe_ke]
+    },
+    "signature_algorithms_cert (50)": {
+      "signature schemes": [ecdsa_secp256r1_sha256, ecdsa_secp384r1_sha384, ecdsa_secp521r1_sha512, ed25519, ed448, rsa_pss_rsae_sha256, rsa_pss_rsae_sha384, rsa_pss_rsae_sha512, rsa_pss_pss_sha256, rsa_pss_pss_sha384, rsa_pss_pss_sha512, rsa_pkcs1_sha256, rsa_pkcs1_sha384, rsa_pkcs1_sha512, ecdsa_sha1, rsa_pkcs1_sha1]
+    },
+    "key_share (51)": {
+      "client_shares": [  
+        {
+          "named group": x25519
+          "key_exchange": {
+            0000: 33 9D 2C FA 5F A2 AF 2E   A6 88 7A 9B E8 68 7D E6  3.,._.....z..h..
+            0010: 42 18 15 51 A8 C0 35 98   84 3B 78 2B A7 60 67 37  B..Q..5..;x+.`g7
+          }
+        },
+      ]
+    }
+  ]
+}
+)
+javax.net.ssl|DEBUG|30|main|2026-07-19 12:44:12.746 CDT|ServerHello.java:939|Consuming ServerHello handshake message (
+"ServerHello": {
+  "server version"      : "TLSv1.2",
+  "random"              : "E9B5DFD584DBDE4ED1CE01BEFD5962F60366D0F69E7092E0DF26668422E32B41",
+  "session id"          : "E5524AE18F6A869FD15BD7ADF1BD953B11D32C147F542BE672B56CFB8D424BCE",
+  "cipher suite"        : "TLS_AES_256_GCM_SHA384(0x1302)",
+  "compression methods" : "00",
+  "extensions"          : [
+    "key_share (51)": {
+      "server_share": {
+        "named group": x25519
+        "key_exchange": {
+          0000: EB DA AD 05 9C E1 0B 54   21 5E 60 18 47 A4 AA 26  .......T!^`.G..&
+          0010: 56 22 0A 91 D6 BA 22 0E   99 95 09 F0 B1 B5 3D 51  V"....".......=Q
+        }
+      },
+    },
+    "supported_versions (43)": {
+      "selected version": [TLSv1.3]
+    }
+  ]
+}
+)
+javax.net.ssl|DEBUG|30|main|2026-07-19 12:44:12.746 CDT|SSLExtensions.java:209|Consumed extension: supported_versions
+javax.net.ssl|DEBUG|30|main|2026-07-19 12:44:12.746 CDT|ServerHello.java:1039|Negotiated protocol version: TLSv1.3
+javax.net.ssl|DEBUG|30|main|2026-07-19 12:44:12.746 CDT|SSLExtensions.java:209|Consumed extension: supported_versions
+javax.net.ssl|DEBUG|30|main|2026-07-19 12:44:12.750 CDT|SSLExtensions.java:209|Consumed extension: key_share
+javax.net.ssl|DEBUG|30|main|2026-07-19 12:44:12.750 CDT|PreSharedKeyExtension.java:936|Handling pre_shared_key absence.
+javax.net.ssl|WARNING|30|main|2026-07-19 12:44:12.750 CDT|SSLExtensions.java:234|Ignore impact of unsupported extension: supported_versions
+javax.net.ssl|WARNING|30|main|2026-07-19 12:44:12.750 CDT|SSLExtensions.java:234|Ignore impact of unsupported extension: key_share
+javax.net.ssl|DEBUG|30|main|2026-07-19 12:44:12.750 CDT|SSLExtensions.java:225|Ignore unavailable extension: pre_shared_key
+javax.net.ssl|DEBUG|30|main|2026-07-19 12:44:12.753 CDT|SSLCipher.java:1846|KeyLimit read side: algorithm = AES/GCM/NoPadding:KEYUPDATE
+countdown value = 137438953472
+javax.net.ssl|DEBUG|30|main|2026-07-19 12:44:12.754 CDT|SSLCipher.java:2008|KeyLimit write side: algorithm = AES/GCM/NoPadding:KEYUPDATE
+countdown value = 137438953472
+javax.net.ssl|DEBUG|30|main|2026-07-19 12:44:12.754 CDT|ChangeCipherSpec.java:241|Consuming ChangeCipherSpec message
+javax.net.ssl|DEBUG|30|main|2026-07-19 12:44:12.755 CDT|EncryptedExtensions.java:172|Consuming EncryptedExtensions handshake message (
+"EncryptedExtensions": [
+  "server_name (0)": {
+    <empty extension_data field>
+  }
+]
+)
+javax.net.ssl|DEBUG|30|main|2026-07-19 12:44:12.755 CDT|SSLExtensions.java:209|Consumed extension: server_name
+javax.net.ssl|DEBUG|30|main|2026-07-19 12:44:12.755 CDT|SSLExtensions.java:189|Ignore unavailable extension: max_fragment_length
+javax.net.ssl|DEBUG|30|main|2026-07-19 12:44:12.756 CDT|SSLExtensions.java:189|Ignore unavailable extension: supported_groups
+javax.net.ssl|WARNING|30|main|2026-07-19 12:44:12.756 CDT|SSLExtensions.java:234|Ignore impact of unsupported extension: server_name
+javax.net.ssl|DEBUG|30|main|2026-07-19 12:44:12.756 CDT|SSLExtensions.java:225|Ignore unavailable extension: max_fragment_length
+javax.net.ssl|DEBUG|30|main|2026-07-19 12:44:12.756 CDT|SSLExtensions.java:225|Ignore unavailable extension: supported_groups
+javax.net.ssl|DEBUG|30|main|2026-07-19 12:44:12.756 CDT|SSLExtensions.java:225|Ignore unavailable extension: application_layer_protocol_negotiation
+javax.net.ssl|DEBUG|30|main|2026-07-19 12:44:12.756 CDT|SSLExtensions.java:225|Ignore unavailable extension: quic_transport_parameters
+javax.net.ssl|DEBUG|30|main|2026-07-19 12:44:12.768 CDT|CertificateMessage.java:1126|Consuming server Certificate handshake message (
+"Certificate": {
+  "certificate_request_context": "",
+  "certificate_list": [  
+  {
+    "certificate" : {
+      "version"            : "v3",
+      "serial number"      : "00:f9:2d:67:ed:e4:53:8a:02:0e:2c:fd:c6:c4:ff:1e:38",
+      "signature algorithm": "SHA256withECDSA",
+      "issuer"             : "CN=WE1, O=Google Trust Services, C=US",
+      "not before"         : "2026-05-29 07:27:23.000 CDT",
+      "not  after"         : "2026-08-27 08:24:53.000 CDT",
+      "subject"            : "CN=pq.cloudflareresearch.com",
+      "subject public key" : "EC",
+      "extensions"         : [
+        {
+          ObjectId: 1.3.6.1.4.1.11129.2.4.2 Criticality=false
+        },
+        {
+          ObjectId: 1.3.6.1.5.5.7.1.1 Criticality=false
+          AuthorityInfoAccess [
+            [
+             accessMethod: ocsp
+             accessLocation: URIName: http://o.pki.goog/s/we1/-S0
+          , 
+             accessMethod: caIssuers
+             accessLocation: URIName: http://i.pki.goog/we1.crt
+          ]
+          ]
+        },
+        {
+          ObjectId: 2.5.29.35 Criticality=false
+          AuthorityKeyIdentifier [
+          KeyIdentifier [
+          0000: 90 77 92 35 67 C4 FF A8   CC A9 E6 7B D9 80 79 7B  .w.5g.........y.
+          0010: CC 93 F9 38                                        ...8
+          ]
+          ]
+        },
+        {
+          ObjectId: 2.5.29.19 Criticality=true
+          BasicConstraints:[
+            CA:false
+            PathLen: undefined
+          ]
+        },
+        {
+          ObjectId: 2.5.29.31 Criticality=false
+          CRLDistributionPoints [
+            [DistributionPoint:
+               [URIName: http://c.pki.goog/we1/7b10WPOaClM.crl]
+          ]]
+        },
+        {
+          ObjectId: 2.5.29.32 Criticality=false
+          CertificatePolicies [
+            [CertificatePolicyId: [2.23.140.1.2.1]
+          []  ]
+          ]
+        },
+        {
+          ObjectId: 2.5.29.37 Criticality=false
+          ExtendedKeyUsages [
+            serverAuth
+          ]
+        },
+        {
+          ObjectId: 2.5.29.15 Criticality=true
+          KeyUsage [
+            DigitalSignature
+          ]
+        },
+        {
+          ObjectId: 2.5.29.17 Criticality=false
+          SubjectAlternativeName [
+            DNSName: pq.cloudflareresearch.com
+            DNSName: *.pq.cloudflareresearch.com
+          ]
+        },
+        {
+          ObjectId: 2.5.29.14 Criticality=false
+          SubjectKeyIdentifier [
+          KeyIdentifier [
+          0000: 5F 6A 6A 7F 3A 6F E7 CE   B0 72 1A C6 94 08 B7 71  _jj.:o...r.....q
+          0010: EA CC 8D 52                                        ...R
+          ]
+          ]
+        }
+      ]}
+    "extensions": {
+      "status_request (5)": {
+        "certificate status response type": ocsp
+        "OCSP status response": {
+          OCSP Response:
+          Response Status: SUCCESSFUL
+          Responder ID: byKey: 9077923567C4FFA8CCA9E67BD980797BCC93F938
+          Produced at: Sat Jul 18 14:59:01 CDT 2026
+          1 response:
+          SingleResponse:
+          CertId 
+          Algorithm: SHA-1
+          issuerNameHash 
+          0000: B9 BE D5 F1 A6 1E 40 B2   41 96 B0 C2 9E 7E 1A 9D  ......@.A.......
+          0010: 8B FC B5 20 
+          issuerKeyHash: 
+          0000: 90 77 92 35 67 C4 FF A8   CC A9 E6 7B D9 80 79 7B  .w.5g.........y.
+          0010: CC 93 F9 38 
+          SerialNumber: 00:f9:2d:67:ed:e4:53:8a:02:0e:2c:fd:c6:c4:ff:1e:38
+          CertStatus: GOOD
+          thisUpdate is Sat Jul 18 14:59:01 CDT 2026
+          nextUpdate is Sat Jul 25 13:59:00 CDT 2026
+        }
+      }
+    }
+  },
+  {
+    "certificate" : {
+      "version"            : "v3",
+      "serial number"      : "7f:f3:19:77:97:2c:22:4a:76:15:5d:13:b6:d6:85:e3",
+      "signature algorithm": "SHA384withECDSA",
+      "issuer"             : "CN=GTS Root R4, O=Google Trust Services LLC, C=US",
+      "not before"         : "2023-12-13 03:00:00.000 CST",
+      "not  after"         : "2029-02-20 08:00:00.000 CST",
+      "subject"            : "CN=WE1, O=Google Trust Services, C=US",
+      "subject public key" : "EC",
+      "extensions"         : [
+        {
+          ObjectId: 1.3.6.1.5.5.7.1.1 Criticality=false
+          AuthorityInfoAccess [
+            [
+             accessMethod: caIssuers
+             accessLocation: URIName: http://i.pki.goog/r4.crt
+          ]
+          ]
+        },
+        {
+          ObjectId: 2.5.29.35 Criticality=false
+          AuthorityKeyIdentifier [
+          KeyIdentifier [
+          0000: 80 4C D6 EB 74 FF 49 36   A3 D5 D8 FC B5 3E C5 6A  .L..t.I6.....>.j
+          0010: F0 94 1D 8C                                        ....
+          ]
+          ]
+        },
+        {
+          ObjectId: 2.5.29.19 Criticality=true
+          BasicConstraints:[
+            CA:true
+            PathLen:0
+          ]
+        },
+        {
+          ObjectId: 2.5.29.31 Criticality=false
+          CRLDistributionPoints [
+            [DistributionPoint:
+               [URIName: http://c.pki.goog/r/r4.crl]
+          ]]
+        },
+        {
+          ObjectId: 2.5.29.32 Criticality=false
+          CertificatePolicies [
+            [CertificatePolicyId: [2.23.140.1.2.1]
+          []  ]
+          ]
+        },
+        {
+          ObjectId: 2.5.29.37 Criticality=false
+          ExtendedKeyUsages [
+            serverAuth
+            clientAuth
+          ]
+        },
+        {
+          ObjectId: 2.5.29.15 Criticality=true
+          KeyUsage [
+            DigitalSignature
+            Key_CertSign
+            Crl_Sign
+          ]
+        },
+        {
+          ObjectId: 2.5.29.14 Criticality=false
+          SubjectKeyIdentifier [
+          KeyIdentifier [
+          0000: 90 77 92 35 67 C4 FF A8   CC A9 E6 7B D9 80 79 7B  .w.5g.........y.
+          0010: CC 93 F9 38                                        ...8
+          ]
+          ]
+        }
+      ]}
+    "extensions": {
+      <no extension>
+    }
+  },
+  {
+    "certificate" : {
+      "version"            : "v3",
+      "serial number"      : "7f:e5:30:bf:33:13:43:be:dd:82:16:10:49:3d:8a:1b",
+      "signature algorithm": "SHA256withRSA",
+      "issuer"             : "CN=GlobalSign Root CA, OU=Root CA, O=GlobalSign nv-sa, C=BE",
+      "not before"         : "2023-11-14 21:43:21.000 CST",
+      "not  after"         : "2028-01-27 18:00:42.000 CST",
+      "subject"            : "CN=GTS Root R4, O=Google Trust Services LLC, C=US",
+      "subject public key" : "EC",
+      "extensions"         : [
+        {
+          ObjectId: 1.3.6.1.5.5.7.1.1 Criticality=false
+          AuthorityInfoAccess [
+            [
+             accessMethod: caIssuers
+             accessLocation: URIName: http://i.pki.goog/gsr1.crt
+          ]
+          ]
+        },
+        {
+          ObjectId: 2.5.29.35 Criticality=false
+          AuthorityKeyIdentifier [
+          KeyIdentifier [
+          0000: 60 7B 66 1A 45 0D 97 CA   89 50 2F 7D 04 CD 34 A8  `.f.E....P/...4.
+          0010: FF FC FD 4B                                        ...K
+          ]
+          ]
+        },
+        {
+          ObjectId: 2.5.29.19 Criticality=true
+          BasicConstraints:[
+            CA:true
+            PathLen: no limit
+          ]
+        },
+        {
+          ObjectId: 2.5.29.31 Criticality=false
+          CRLDistributionPoints [
+            [DistributionPoint:
+               [URIName: http://c.pki.goog/r/gsr1.crl]
+          ]]
+        },
+        {
+          ObjectId: 2.5.29.32 Criticality=false
+          CertificatePolicies [
+            [CertificatePolicyId: [2.23.140.1.2.1]
+          []  ]
+          ]
+        },
+        {
+          ObjectId: 2.5.29.37 Criticality=false
+          ExtendedKeyUsages [
+            serverAuth
+            clientAuth
+          ]
+        },
+        {
+          ObjectId: 2.5.29.15 Criticality=true
+          KeyUsage [
+            DigitalSignature
+            Key_CertSign
+            Crl_Sign
+          ]
+        },
+        {
+          ObjectId: 2.5.29.14 Criticality=false
+          SubjectKeyIdentifier [
+          KeyIdentifier [
+          0000: 80 4C D6 EB 74 FF 49 36   A3 D5 D8 FC B5 3E C5 6A  .L..t.I6.....>.j
+          0010: F0 94 1D 8C                                        ....
+          ]
+          ]
+        }
+      ]}
+    "extensions": {
+      <no extension>
+    }
+  },
+]
+}
+)
+javax.net.ssl|DEBUG|30|main|2026-07-19 12:44:12.768 CDT|SSLExtensions.java:209|Consumed extension: status_request
+javax.net.ssl|DEBUG|30|main|2026-07-19 12:44:12.768 CDT|SSLExtensions.java:189|Ignore unavailable extension: status_request
+javax.net.ssl|DEBUG|30|main|2026-07-19 12:44:12.768 CDT|SSLExtensions.java:189|Ignore unavailable extension: status_request
+javax.net.ssl|DEBUG|30|main|2026-07-19 12:44:12.787 CDT|CertificateVerify.java:1181|Consuming CertificateVerify handshake message (
+"CertificateVerify": {
+  "signature algorithm": ecdsa_secp256r1_sha256
+  "signature": {
+    0000: 30 44 02 20 02 AF AB 6F   AD 7C 5A 05 32 9A DF E8  0D. ...o..Z.2...
+    0010: 48 E4 A0 B6 85 0D B3 DE   E7 2C 93 A4 BE 05 34 23  H........,....4#
+    0020: E3 50 A0 0C 02 20 76 AD   E8 2F AF AB BB D2 B7 92  .P... v../......
+    0030: BA FE 41 A7 E3 3A 7F 9A   B9 BC 3E F4 66 EA 26 9C  ..A..:....>.f.&.
+    0040: 4F C7 FD 5F 87 4A                                  O.._.J
+  }
+}
+)
+javax.net.ssl|DEBUG|30|main|2026-07-19 12:44:12.788 CDT|Finished.java:934|Consuming server Finished handshake message (
+"Finished": {
+  "verify data": {
+    0000: 73 A3 5D 6B 83 0A 0D 98   FC 54 A1 5F 3E 7E FB 11  s.]k.....T._>...
+    0010: 09 89 2D F0 A7 CD 5C 2D   2F 72 E3 42 A4 D7 09 50  ..-...\-/r.B...P
+    0020: 89 8F 7B 89 FC 88 62 3D   A7 07 EA 79 CD 35 0A 58  ......b=...y.5.X
+  }
+}
+)
+javax.net.ssl|DEBUG|30|main|2026-07-19 12:44:12.789 CDT|SSLCipher.java:1846|KeyLimit read side: algorithm = AES/GCM/NoPadding:KEYUPDATE
+countdown value = 137438953472
+javax.net.ssl|DEBUG|30|main|2026-07-19 12:44:12.789 CDT|Finished.java:685|Produced client Finished handshake message (
+"Finished": {
+  "verify data": {
+    0000: A4 BF D2 F1 24 40 D0 1D   33 83 7E FE 04 0F 75 DD  ....$@..3.....u.
+    0010: 6A 15 92 07 89 A4 5A 74   0C AD 24 08 A5 D8 27 AC  j.....Zt..$...'.
+    0020: 20 DA 5D E7 49 8E DF 30   3F F4 CA A7 DE 6D A0 B6   .].I..0?....m..
+  }
+}
+)
+javax.net.ssl|DEBUG|30|main|2026-07-19 12:44:12.790 CDT|SSLCipher.java:2008|KeyLimit write side: algorithm = AES/GCM/NoPadding:KEYUPDATE
+countdown value = 137438953472
+javax.net.ssl|DEBUG|30|main|2026-07-19 12:44:12.792 CDT|SSLSocketImpl.java:577|duplex close of SSLSocket
+javax.net.ssl|DEBUG|30|main|2026-07-19 12:44:12.793 CDT|SSLSocketImpl.java:1763|close the SSL connection (passive)
