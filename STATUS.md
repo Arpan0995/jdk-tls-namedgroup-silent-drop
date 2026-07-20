@@ -93,9 +93,14 @@ After a successful handshake there is NO public API returning the negotiated
 named group, on either JDK:
 - Enumerated all public methods of SSLSession, ExtendedSSLSession,
   SSLParameters, SSLSocket, SSLEngine mentioning group/kex/KEM: only
-  `SSLParameters.get/setNamedGroups` exist — and `getNamedGroups()` after the
-  handshake returns what was SET (verified: returns `MLKEM768,x25519` in C3
-  even though x25519 was negotiated).
+  `SSLParameters.get/setNamedGroups` exist — and a FRESH
+  `socket.getSSLParameters()` call on the connected socket after the handshake
+  returns a new SSLParameters instance (distinct from the object passed to
+  `setSSLParameters()`) whose `getNamedGroups()` still reports what was SET,
+  not what was negotiated (verified: returns `MLKEM768,x25519` in C3 even
+  though x25519 was negotiated — `src/ClientProbe.java` probe3(), the
+  `PROBE3-PARAMS-AFTER-HANDSHAKE` line; distinct-instance behavior re-confirmed
+  2026-07-19 against pq.cloudflareresearch.com on both pinned JDKs).
 - `SSLSession.getValueNames()` is empty; getProtocol()/getCipherSuite() do not
   disclose the group (TLS 1.3 cipher suites are key-exchange-agnostic).
 - JDK 27 EA adds nothing new here.
